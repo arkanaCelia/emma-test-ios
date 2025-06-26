@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */; };
-		827D7CDD2E0D24FB00C50FE2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDC2E0D24FB00C50FE2 /* ContentView.swift */; };
+		827D7CDD2E0D24FB00C50FE2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */; };
 		827D7CDF2E0D24FC00C50FE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */; };
 		827D7CE22E0D24FC00C50FE2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827D7CE12E0D24FC00C50FE2 /* Preview Assets.xcassets */; };
+		82D8E0C92E0D5B2B00DBEBC8 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		827D7CD72E0D24FB00C50FE2 /* emma-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "emma-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emma_test_iosApp.swift; sourceTree = "<group>"; };
-		827D7CDC2E0D24FB00C50FE2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		827D7CE12E0D24FC00C50FE2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +53,9 @@
 		827D7CD92E0D24FB00C50FE2 /* emma-test-ios */ = {
 			isa = PBXGroup;
 			children = (
+				82D8E0C72E0D5ACF00DBEBC8 /* extensions */,
 				827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */,
-				827D7CDC2E0D24FB00C50FE2 /* ContentView.swift */,
+				827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */,
 				827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */,
 				827D7CE02E0D24FC00C50FE2 /* Preview Content */,
 			);
@@ -65,6 +68,14 @@
 				827D7CE12E0D24FC00C50FE2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		82D8E0C72E0D5ACF00DBEBC8 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +148,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				827D7CDD2E0D24FB00C50FE2 /* ContentView.swift in Sources */,
+				827D7CDD2E0D24FB00C50FE2 /* HomeView.swift in Sources */,
 				827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */,
+				82D8E0C92E0D5B2B00DBEBC8 /* CustomColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
