@@ -7,11 +7,26 @@
 
 
 import SwiftUI
+import EMMA_iOS
 
 struct HomeView: View {
     
-    // language var
+    // --- variables --- //
+    @StateObject private var viewModel = HomeViewModel()
+    
+    // Toast to watch events on UI
+    @State private var showToast = false
+    @State private var toastMessage = ""
+    
+    // Language
     @State private var selectedLanguage = "es"
+    
+    // Transactions
+    @State private var transactionStarted = false
+    @State private var isProductAdded = false
+    @State private var quantity: Float = 0.0
+    @State private var totalPrice: Float = 0.0
+    
     
     var body: some View {
         ScrollView {
@@ -39,7 +54,7 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                     // Register + Login + StartSession
-                    Text("Simulate a register, a login or startSession. If this last button is not enabled, session is started automatically opening the app.")
+                    Text("Simulate a register or a login in the app.")
                         .font(.body)
                         .fontWeight(.regular)
                         .foregroundColor(Color.customGrey)
@@ -47,33 +62,54 @@ struct HomeView: View {
                         .padding([.top, .leading, .trailing])
                     
                     HStack{
+                        
+                        //btnRegister
                         Button("Register") {
-                            //TODO: implementar simulación de registro
+                            var userid = "Celia"
+                            var mail = "celia@emma.io"
+                            
+                            EMMA.registerUser(userId: userid, forMail: mail, andExtras: nil)
+                            
+                            showToast(message: "Register test: User \(userid) with email \(mail) registered.")
+
                         }
                         .padding()
                         .background(Color.emmaGreen)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
+                        //btnLogin
                         Button("Login") {
-                            //TODO: implementar simulación de login
+                            var userid = "Celia"
+                            var mail = "celia@emma.io"
+                            
+                            EMMA.loginUser(userId: userid, forMail: mail, andExtras: nil)
+                            
+                            showToast(message: "Login test: User \(userid) with email \(mail) logged in.")
                         }
                         .padding()
                         .background(Color.emmaGreen)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
-                        Button("Start Session") {
-                            //TODO: Implementar simulacion de startsession + deshabilitar boton si ya se inició + cambiar texto boton
+                        //btnStartsession
+                        Button(viewModel.sessionStarted ? "Session started" : "Start session") {
+                            viewModel.startSessionIfNeeded()
                         }
                         .padding()
-                        .background(Color.emmaGreen)
+                        .background(viewModel.sessionStarted ? Color.gray : Color.emmaGreen)
                         .foregroundColor(.black)
                         .cornerRadius(10)
+                        .disabled(viewModel.sessionStarted)
                         
                     }
                     
                     // Transactions
+                    let orderId = "Order_ID_test"
+                    let customerId = "Customer_ID_test"
+                    let productId = "Product_ID_test"
+                    let productName = "Product_name_test"
+                    
                     Text("EMMA allows you to measure any transaction or purchase made in your app.")
                         .font(.body)
                         .fontWeight(.regular)
@@ -82,43 +118,111 @@ struct HomeView: View {
                         .padding([.top, .leading, .trailing])
                     
                     HStack{
+                        
+                        //btnStartOrder
                         Button("Start Order") {
-                            //TODO: implementar startorder
+                            transactionStarted = true
+                            EMMA.startOrder(orderId: "Order_ID", andCustomer: "Customer_ID", withTotalPrice: totalPrice, withExtras: nil, assignCoupon: nil)
+                            
+                            showToast(message: "Order started with order id: \(orderId)  and customer id: \(customerId)." )
                         }
                         .padding()
-                        .background(Color.emmaGreen)
+                        .background(transactionStarted ? Color.gray : Color.emmaGreen)
+                        .disabled(transactionStarted)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
                         Button("Add Product") {
-                            //TODO: implementar addproduct
+                            isProductAdded = true
+                            quantity += 1
+                            totalPrice = quantity * 10.0
+                            EMMA.addProduct(productId: productId, andName: productName, withQty: quantity, andPrice: totalPrice, withExtras: nil)
+                            showToast(message: "Product added with id: \(productId) and name: \(productName)")
                         }
                         .padding()
-                        .background(Color.emmaGreen)
                         .foregroundColor(.black)
+                        .background(transactionStarted ? Color.emmaGreen : Color.gray)
+                        .disabled(!transactionStarted)
                         .cornerRadius(10)
-                        
                         
                     }
                     
                     HStack{
+                        
+                        //btnCancelOrder
                         Button("Cancel Order") {
-                            //TODO: implementar cancelorder
+                            transactionStarted = false
+                            isProductAdded = false
+                            quantity = 0.0
+                            totalPrice = 0.0
+                            
+                            EMMA.cancelOrder(orderId: orderId)
+                            showToast(message: "Order with id: \(orderId) cancelled.")
                         }
                         .padding()
-                        .background(Color.emmaGreen)
+                        .background(transactionStarted ? Color.emmaGreen : Color.gray)
+                        .disabled(!transactionStarted)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
+                        //btnTrackOrder
                         Button("Track Order") {
-                            //TODO: implementar trackorder
+                            
+                            EMMA.trackOrder()
+                            showToast(message: "Tracking order. Total products purchased: \(Int(quantity)). Total price: \(Int(totalPrice))€")
+                            transactionStarted = false
+                            isProductAdded = false
+                            quantity = 0.0
+                            totalPrice = 0.0
                         }
                         .padding()
-                        .background(Color.emmaGreen)
+                        .background(isProductAdded ? Color.emmaGreen : Color.gray)
+                        .disabled(!isProductAdded)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
                     }
+                    
+                    // table show transaction
+                    HStack(alignment: .top) {
+                        // Column 1: Product name
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Product name")
+                                .font(.body)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
+                            Text(productName)
+                                .font(.body)
+                                .foregroundColor(Color.red)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                        // Column 2: Quantity
+                        VStack(alignment: .center, spacing: 8) {
+                            Text("Quantity")
+                                .font(.body)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
+                            Text("\(Int(quantity))")
+                                .font(.body)
+                                .foregroundColor(Color.red)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+
+                        // Column 3: Price
+                        VStack(alignment: .trailing, spacing: 8) {
+                            Text("Price")
+                                .font(.body)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
+                            Text("\(Int(totalPrice))")
+                                .font(.body)
+                                .foregroundColor(Color.red)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .padding()
+                    .opacity(transactionStarted ? 1 : 0)
                     
                 }
                 
@@ -143,7 +247,10 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading, .trailing])
                     Button("Track event") {
-                        //TODO: implementar trackingevent
+                        var eventToken = "83fdb9ae1fbdd2f8f95eb5d426b2e63e"
+                        EventManager.shared.trackCustomEvent(token: eventToken)
+                        showToast(message: "Tracking event with token \(eventToken)")
+                        
                     }
                     .padding()
                     .background(Color.emmaGreen)
@@ -419,13 +526,48 @@ struct HomeView: View {
                     
                 }
                 
-                Spacer()  // Para empujar los elementos hacia arriba
+                Spacer()  // pushing elements up
                 .padding()
+                
             }// end of VStack principal
+            
+            .onAppear {
+                //waits 1sec after the view appears to check if the session is started
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    viewModel.checkSession()
+                }
+                
+                
+            }
                 
         }// end of scrollview
+        
+        .overlay( // showing toast on the view
+            Group {
+                if showToast {
+                    ToastView(message: toastMessage)
+                        .padding(.bottom, 60)
+                }
+            },
+            alignment: .bottom
+        )
+
             
     }//end of body
+    
+    // --- other functions --- //
+    
+    // show toast
+    func showToast(message: String) {
+        toastMessage = message
+        showToast = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            showToast = false
+        }
+    }
+
+    
         
 }
 

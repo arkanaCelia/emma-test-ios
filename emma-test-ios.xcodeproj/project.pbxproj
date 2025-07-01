@@ -7,20 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5417F25C095C7059E4ABA746 /* Pods_emma_test_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A09AE6D24C96A9C4D39A05 /* Pods_emma_test_ios.framework */; };
+		822094EA2E13BB3800C5B486 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822094E92E13BB3800C5B486 /* ToastView.swift */; };
 		827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */; };
 		827D7CDD2E0D24FB00C50FE2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */; };
 		827D7CDF2E0D24FC00C50FE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */; };
 		827D7CE22E0D24FC00C50FE2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827D7CE12E0D24FC00C50FE2 /* Preview Assets.xcassets */; };
+		82A3D9632E12E03000C23B07 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A3D9622E12E03000C23B07 /* HomeViewModel.swift */; };
+		82D046FB2E13C56400152229 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D046FA2E13C56400152229 /* EventManager.swift */; };
 		82D8E0C92E0D5B2B00DBEBC8 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */; };
+		82EDDD992E0E741A0078337F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EDDD982E0E741A0078337F /* AppDelegate.swift */; };
+		82EDDD9C2E0E8D510078337F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82EDDD9B2E0E8D510078337F /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		727B96AD1A9657186C941DA0 /* Pods-emma-test-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-emma-test-ios.release.xcconfig"; path = "Target Support Files/Pods-emma-test-ios/Pods-emma-test-ios.release.xcconfig"; sourceTree = "<group>"; };
+		73A09AE6D24C96A9C4D39A05 /* Pods_emma_test_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_emma_test_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		822094E92E13BB3800C5B486 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		827D7CD72E0D24FB00C50FE2 /* emma-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "emma-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emma_test_iosApp.swift; sourceTree = "<group>"; };
 		827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		827D7CE12E0D24FC00C50FE2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		82A3D9622E12E03000C23B07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		82D046FA2E13C56400152229 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
+		82EDDD982E0E741A0078337F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		82EDDD9A2E0E8C0F0078337F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82EDDD9B2E0E8D510078337F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		82EDDD9D2E0EDAB50078337F /* emma-test-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "emma-test-ios.entitlements"; sourceTree = "<group>"; };
+		EE41910FEFD03493D9FE4EB7 /* Pods-emma-test-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-emma-test-ios.debug.xcconfig"; path = "Target Support Files/Pods-emma-test-ios/Pods-emma-test-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,17 +44,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82EDDD9C2E0E8D510078337F /* StoreKit.framework in Frameworks */,
+				5417F25C095C7059E4ABA746 /* Pods_emma_test_ios.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8213BA972E126F8600FBFBE9 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */,
+				822094E92E13BB3800C5B486 /* ToastView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		8213BA982E126F9C00FBFBE9 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */,
+				82EDDD9A2E0E8C0F0078337F /* Info.plist */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		8213BA992E126FBA00FBFBE9 /* viewmodels */ = {
+			isa = PBXGroup;
+			children = (
+				82A3D9622E12E03000C23B07 /* HomeViewModel.swift */,
+			);
+			path = viewmodels;
+			sourceTree = "<group>";
+		};
 		827D7CCE2E0D24FB00C50FE2 = {
 			isa = PBXGroup;
 			children = (
 				827D7CD92E0D24FB00C50FE2 /* emma-test-ios */,
 				827D7CD82E0D24FB00C50FE2 /* Products */,
+				9824B5E3A4BCE55075650ACA /* Pods */,
+				F564EB3BCD44DC2A67A1BE92 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,11 +99,15 @@
 		827D7CD92E0D24FB00C50FE2 /* emma-test-ios */ = {
 			isa = PBXGroup;
 			children = (
+				82D046F92E13C54C00152229 /* managers */,
+				8213BA992E126FBA00FBFBE9 /* viewmodels */,
+				8213BA982E126F9C00FBFBE9 /* resources */,
+				8213BA972E126F8600FBFBE9 /* views */,
+				82EDDD9D2E0EDAB50078337F /* emma-test-ios.entitlements */,
 				82D8E0C72E0D5ACF00DBEBC8 /* extensions */,
 				827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */,
-				827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */,
-				827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */,
 				827D7CE02E0D24FC00C50FE2 /* Preview Content */,
+				82EDDD982E0E741A0078337F /* AppDelegate.swift */,
 			);
 			path = "emma-test-ios";
 			sourceTree = "<group>";
@@ -70,12 +120,38 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		82D046F92E13C54C00152229 /* managers */ = {
+			isa = PBXGroup;
+			children = (
+				82D046FA2E13C56400152229 /* EventManager.swift */,
+			);
+			path = managers;
+			sourceTree = "<group>";
+		};
 		82D8E0C72E0D5ACF00DBEBC8 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
 				82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		9824B5E3A4BCE55075650ACA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EE41910FEFD03493D9FE4EB7 /* Pods-emma-test-ios.debug.xcconfig */,
+				727B96AD1A9657186C941DA0 /* Pods-emma-test-ios.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F564EB3BCD44DC2A67A1BE92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82EDDD9B2E0E8D510078337F /* StoreKit.framework */,
+				73A09AE6D24C96A9C4D39A05 /* Pods_emma_test_ios.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,15 +161,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 827D7CE52E0D24FC00C50FE2 /* Build configuration list for PBXNativeTarget "emma-test-ios" */;
 			buildPhases = (
+				D510E37D2A89F42B1DF9293E /* [CP] Check Pods Manifest.lock */,
 				827D7CD32E0D24FB00C50FE2 /* Sources */,
 				827D7CD42E0D24FB00C50FE2 /* Frameworks */,
 				827D7CD52E0D24FB00C50FE2 /* Resources */,
+				7A9B7BCE5591B4170CCB5F66 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "emma-test-ios";
+			packageProductDependencies = (
+			);
 			productName = "emma-test-ios";
 			productReference = 827D7CD72E0D24FB00C50FE2 /* emma-test-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +202,9 @@
 				Base,
 			);
 			mainGroup = 827D7CCE2E0D24FB00C50FE2;
+			packageReferences = (
+				82D8E0CA2E0DA3A500DBEBC8 /* XCRemoteSwiftPackageReference "eMMa-iOS-SDK" */,
+			);
 			productRefGroup = 827D7CD82E0D24FB00C50FE2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -143,13 +226,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7A9B7BCE5591B4170CCB5F66 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-emma-test-ios/Pods-emma-test-ios-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-emma-test-ios/Pods-emma-test-ios-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-emma-test-ios/Pods-emma-test-ios-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D510E37D2A89F42B1DF9293E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-emma-test-ios-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		827D7CD32E0D24FB00C50FE2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D046FB2E13C56400152229 /* EventManager.swift in Sources */,
+				82EDDD992E0E741A0078337F /* AppDelegate.swift in Sources */,
 				827D7CDD2E0D24FB00C50FE2 /* HomeView.swift in Sources */,
 				827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */,
+				82A3D9632E12E03000C23B07 /* HomeViewModel.swift in Sources */,
+				822094EA2E13BB3800C5B486 /* ToastView.swift in Sources */,
 				82D8E0C92E0D5B2B00DBEBC8 /* CustomColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,14 +402,18 @@
 		};
 		827D7CE62E0D24FC00C50FE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE41910FEFD03493D9FE4EB7 /* Pods-emma-test-ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "emma-test-ios/emma-test-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"emma-test-ios/Preview Content\"";
+				DEVELOPMENT_TEAM = V9SQWVREY8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "emma-test-ios/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -301,14 +434,18 @@
 		};
 		827D7CE72E0D24FC00C50FE2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 727B96AD1A9657186C941DA0 /* Pods-emma-test-ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "emma-test-ios/emma-test-ios.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"emma-test-ios/Preview Content\"";
+				DEVELOPMENT_TEAM = V9SQWVREY8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "emma-test-ios/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -349,6 +486,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		82D8E0CA2E0DA3A500DBEBC8 /* XCRemoteSwiftPackageReference "eMMa-iOS-SDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EMMADevelopment/eMMa-iOS-SDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 827D7CCF2E0D24FB00C50FE2 /* Project object */;
 }
