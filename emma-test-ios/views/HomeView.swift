@@ -27,6 +27,15 @@ struct HomeView: View {
     @State private var quantity: Float = 0.0
     @State private var totalPrice: Float = 0.0
     
+    // Tags
+    @State private var userAge: String = ""
+    
+    // User info
+    @State private var customerId: String = ""
+    @State private var userInfo: [String: Any] = [:]
+    @State private var showingUserInfo = false
+    
+    
     
     var body: some View {
         ScrollView {
@@ -122,7 +131,7 @@ struct HomeView: View {
                         //btnStartOrder
                         Button("Start Order") {
                             transactionStarted = true
-                            EMMA.startOrder(orderId: "Order_ID", andCustomer: "Customer_ID", withTotalPrice: totalPrice, withExtras: nil, assignCoupon: nil)
+                            EMMA.startOrder(orderId: orderId, andCustomer: customerId, withTotalPrice: totalPrice, withExtras: nil, assignCoupon: nil)
                             
                             showToast(message: "Order started with order id: \(orderId)  and customer id: \(customerId)." )
                         }
@@ -182,47 +191,49 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                     }
-                    
-                    // table show transaction
-                    HStack(alignment: .top) {
-                        // Column 1: Product name
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Product name")
-                                .font(.body)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black)
-                            Text(productName)
-                                .font(.body)
-                                .foregroundColor(Color.red)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if transactionStarted {
+                        // table show transaction
+                        HStack(alignment: .top) {
+                            // Column 1: Product name
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Product name")
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.black)
+                                Text(productName)
+                                    .font(.body)
+                                    .foregroundColor(Color.red)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-                        // Column 2: Quantity
-                        VStack(alignment: .center, spacing: 8) {
-                            Text("Quantity")
-                                .font(.body)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black)
-                            Text("\(Int(quantity))")
-                                .font(.body)
-                                .foregroundColor(Color.red)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
+                            // Column 2: Quantity
+                            VStack(alignment: .center, spacing: 8) {
+                                Text("Quantity")
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.black)
+                                Text("\(Int(quantity))")
+                                    .font(.body)
+                                    .foregroundColor(Color.red)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .center)
 
-                        // Column 3: Price
-                        VStack(alignment: .trailing, spacing: 8) {
-                            Text("Price")
-                                .font(.body)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black)
-                            Text("\(Int(totalPrice))")
-                                .font(.body)
-                                .foregroundColor(Color.red)
+                            // Column 3: Price
+                            VStack(alignment: .trailing, spacing: 8) {
+                                Text("Price")
+                                    .font(.body)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.black)
+                                Text("\(Int(totalPrice))")
+                                    .font(.body)
+                                    .foregroundColor(Color.red)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .padding()
+                        .opacity(transactionStarted ? 1 : 0)
                     }
-                    .padding()
-                    .opacity(transactionStarted ? 1 : 0)
+                    
                     
                 }
                 
@@ -273,31 +284,38 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                     // Register + Login + StartSession
-                    Text("Change your age tag, and obtain all user tags")
+                    Text("Change your age tag.")
                         .font(.body)
                         .fontWeight(.regular)
                         .foregroundColor(Color.customGrey)
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading, .trailing])
                     
-                    HStack{
-                        Button("Set age") {
-                            //TODO: implementar logica para añadir la edad que el usuario escriba
-                        }
+                    TextField("Write your age", text: $userAge)
                         .padding()
-                        .background(Color.emmaGreen)
-                        .foregroundColor(.black)
+                        .frame(width: 250, height: 50)
+                        .background(Color.white)
                         .cornerRadius(10)
-                        
-                        Button("See user tags") {
-                            //TODO: implementar logica para mostrar en la app los tags del usuario
+                        .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                        .multilineTextAlignment(.center)
+                        .keyboardType(.numberPad)
+                        .padding(.top)
+                    
+                    Button("Set age") {
+                        if !userAge.isEmpty{
+                            EMMA.trackExtraUserInfo(info: ["AGE": userAge])
+                            showToast(message: "Age set as a TAG, with value = \(userAge)")
+                        } else {
+                            showToast(message: "Please enter an age")
                         }
-                        .padding()
-                        .background(Color.emmaGreen)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        
                     }
+                    .padding()
+                    .background(Color.emmaGreen)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
                     
                 }
                 
@@ -324,7 +342,13 @@ struct HomeView: View {
                     
                     HStack{
                         Button("Get user ID") {
-                            //TODO: mostrar user id
+                            EMMA.getUserId { (user_id) in
+                                    guard let uid = user_id else {
+                                        showToast(message: "Error getting user id")
+                                        return
+                                    }
+                                    showToast(message: "Your EMMA USER ID is \(uid)")
+                                }
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -332,7 +356,8 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                         Button("Get device ID") {
-                            //TODO: mostrar device ID
+                            var deviceId = EMMA.deviceId()
+                            showToast(message: "Your device ID is \(deviceId)")
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -340,24 +365,52 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                     }
-                    HStack{
-                        Button("Set customer ID") {
-                            //TODO: implementar lógica para introducir un ID de customer
+                    
+                    Button("Get all user info") {
+                        EMMA.getUserInfo { (user_profile) in
+                            guard let profile = user_profile else {
+                                showToast(message: "Error getting user profile")
+                                return
+                            }
+                            
+                            // Lo pasamos al diccionario de String : Any
+                            var info: [String: Any] = [:]
+                            for (key, value) in profile {
+                                info["\(key)"] = value
+                            }
+                            
+                            DispatchQueue.main.async {
+                                self.userInfo = info
+                                self.showingUserInfo = true
+                            }
                         }
-                        .padding()
-                        .background(Color.emmaGreen)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        
-                        Button("Get all user info") {
-                            //TODO: implementar lógica para mostrar toda la info del usuario
-                        }
-                        .padding()
-                        .background(Color.emmaGreen)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        
                     }
+                    .padding()
+                    .background(Color.emmaGreen)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
+                    
+                    TextField("Write a customer ID", text: $customerId)
+                    .padding()
+                    .frame(width: 250, height: 50)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.gray, lineWidth: 1)
+                        )
+                    .multilineTextAlignment(.center)
+                    .keyboardType(.default)
+                    .padding(.top)
+                    
+                    Button("Set customer ID") {
+                        EMMA.setCustomerId(customerId: customerId)
+                        showToast(message: "Customer ID set to: \(customerId)")
+                    }
+                    .padding()
+                    .background(Color.emmaGreen)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
                     
                 }
                 
@@ -542,7 +595,23 @@ struct HomeView: View {
                 
         }// end of scrollview
         
-        .overlay( // showing toast on the view
+        // Sheet with userInfo
+        .sheet(isPresented: $showingUserInfo) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(userInfo.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                        Text("\(key): \(String(describing: value))")
+                            .font(.body)
+                            .padding(.vertical, 2)
+                    }
+                }
+                .padding()
+            }
+        }
+
+        
+        // Toast for UI information
+        .overlay(
             Group {
                 if showToast {
                     ToastView(message: toastMessage)

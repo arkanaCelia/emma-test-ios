@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5417F25C095C7059E4ABA746 /* Pods_emma_test_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A09AE6D24C96A9C4D39A05 /* Pods_emma_test_ios.framework */; };
 		822094EA2E13BB3800C5B486 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822094E92E13BB3800C5B486 /* ToastView.swift */; };
+		8259C7AA2E1429C800A2B43E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8259C7A92E1429C800A2B43E /* String.swift */; };
 		827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */; };
 		827D7CDD2E0D24FB00C50FE2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */; };
 		827D7CDF2E0D24FC00C50FE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 827D7CDE2E0D24FC00C50FE2 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		727B96AD1A9657186C941DA0 /* Pods-emma-test-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-emma-test-ios.release.xcconfig"; path = "Target Support Files/Pods-emma-test-ios/Pods-emma-test-ios.release.xcconfig"; sourceTree = "<group>"; };
 		73A09AE6D24C96A9C4D39A05 /* Pods_emma_test_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_emma_test_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		822094E92E13BB3800C5B486 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		8259C7A92E1429C800A2B43E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		827D7CD72E0D24FB00C50FE2 /* emma-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "emma-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emma_test_iosApp.swift; sourceTree = "<group>"; };
 		827D7CDC2E0D24FB00C50FE2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */,
+				8259C7A92E1429C800A2B43E /* String.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */,
 				82A3D9632E12E03000C23B07 /* HomeViewModel.swift in Sources */,
 				822094EA2E13BB3800C5B486 /* ToastView.swift in Sources */,
+				8259C7AA2E1429C800A2B43E /* String.swift in Sources */,
 				82D8E0C92E0D5B2B00DBEBC8 /* CustomColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
