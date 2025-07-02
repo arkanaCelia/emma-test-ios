@@ -14,27 +14,11 @@ struct HomeView: View {
     // --- variables --- //
     @StateObject private var viewModel = HomeViewModel()
     
-    // Toast to watch events on UI
-    @State private var showToast = false
-    @State private var toastMessage = ""
-    
     // Language
     @State private var selectedLanguage = "es"
     
-    // Transactions
-    @State private var transactionStarted = false
-    @State private var isProductAdded = false
-    @State private var quantity: Float = 0.0
-    @State private var totalPrice: Float = 0.0
-    
     // Tags
     @State private var userAge: String = ""
-    
-    // User info
-    @State private var customerId: String = ""
-    @State private var userInfo: [String: Any] = [:]
-    @State private var showingUserInfo = false
-    
     
     
     var body: some View {
@@ -74,13 +58,7 @@ struct HomeView: View {
                         
                         //btnRegister
                         Button("Register") {
-                            var userid = "Celia"
-                            var mail = "celia@emma.io"
-                            
-                            EMMA.registerUser(userId: userid, forMail: mail, andExtras: nil)
-                            
-                            showToast(message: "Register test: User \(userid) with email \(mail) registered.")
-
+                            viewModel.registerUser()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -89,12 +67,7 @@ struct HomeView: View {
                         
                         //btnLogin
                         Button("Login") {
-                            var userid = "Celia"
-                            var mail = "celia@emma.io"
-                            
-                            EMMA.loginUser(userId: userid, forMail: mail, andExtras: nil)
-                            
-                            showToast(message: "Login test: User \(userid) with email \(mail) logged in.")
+                            viewModel.loginUser()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -113,11 +86,6 @@ struct HomeView: View {
                         
                     }
                     
-                    // Transactions
-                    let orderId = "Order_ID_test"
-                    let customerId = "Customer_ID_test"
-                    let productId = "Product_ID_test"
-                    let productName = "Product_name_test"
                     
                     Text("EMMA allows you to measure any transaction or purchase made in your app.")
                         .font(.body)
@@ -130,28 +98,21 @@ struct HomeView: View {
                         
                         //btnStartOrder
                         Button("Start Order") {
-                            transactionStarted = true
-                            EMMA.startOrder(orderId: orderId, andCustomer: customerId, withTotalPrice: totalPrice, withExtras: nil, assignCoupon: nil)
-                            
-                            showToast(message: "Order started with order id: \(orderId)  and customer id: \(customerId)." )
+                            viewModel.startOrder()
                         }
                         .padding()
-                        .background(transactionStarted ? Color.gray : Color.emmaGreen)
-                        .disabled(transactionStarted)
+                        .background(viewModel.transactionStarted ? Color.gray : Color.emmaGreen)
+                        .disabled(viewModel.transactionStarted)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
                         Button("Add Product") {
-                            isProductAdded = true
-                            quantity += 1
-                            totalPrice = quantity * 10.0
-                            EMMA.addProduct(productId: productId, andName: productName, withQty: quantity, andPrice: totalPrice, withExtras: nil)
-                            showToast(message: "Product added with id: \(productId) and name: \(productName)")
+                            viewModel.addProduct()
                         }
                         .padding()
                         .foregroundColor(.black)
-                        .background(transactionStarted ? Color.emmaGreen : Color.gray)
-                        .disabled(!transactionStarted)
+                        .background(viewModel.transactionStarted ? Color.emmaGreen : Color.gray)
+                        .disabled(!viewModel.transactionStarted)
                         .cornerRadius(10)
                         
                     }
@@ -160,38 +121,26 @@ struct HomeView: View {
                         
                         //btnCancelOrder
                         Button("Cancel Order") {
-                            transactionStarted = false
-                            isProductAdded = false
-                            quantity = 0.0
-                            totalPrice = 0.0
-                            
-                            EMMA.cancelOrder(orderId: orderId)
-                            showToast(message: "Order with id: \(orderId) cancelled.")
+                            viewModel.cancelOrder()
                         }
                         .padding()
-                        .background(transactionStarted ? Color.emmaGreen : Color.gray)
-                        .disabled(!transactionStarted)
+                        .background(viewModel.transactionStarted ? Color.emmaGreen : Color.gray)
+                        .disabled(!viewModel.transactionStarted)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
                         //btnTrackOrder
                         Button("Track Order") {
-                            
-                            EMMA.trackOrder()
-                            showToast(message: "Tracking order. Total products purchased: \(Int(quantity)). Total price: \(Int(totalPrice))€")
-                            transactionStarted = false
-                            isProductAdded = false
-                            quantity = 0.0
-                            totalPrice = 0.0
+                            viewModel.trackOrder()
                         }
                         .padding()
-                        .background(isProductAdded ? Color.emmaGreen : Color.gray)
-                        .disabled(!isProductAdded)
+                        .background(viewModel.isProductAdded ? Color.emmaGreen : Color.gray)
+                        .disabled(!viewModel.isProductAdded)
                         .foregroundColor(.black)
                         .cornerRadius(10)
                         
                     }
-                    if transactionStarted {
+                    if viewModel.transactionStarted {
                         // table show transaction
                         HStack(alignment: .top) {
                             // Column 1: Product name
@@ -200,7 +149,7 @@ struct HomeView: View {
                                     .font(.body)
                                     .fontWeight(.bold)
                                     .foregroundColor(Color.black)
-                                Text(productName)
+                                Text(viewModel.productName)
                                     .font(.body)
                                     .foregroundColor(Color.red)
                             }
@@ -212,7 +161,7 @@ struct HomeView: View {
                                     .font(.body)
                                     .fontWeight(.bold)
                                     .foregroundColor(Color.black)
-                                Text("\(Int(quantity))")
+                                Text("\(Int(viewModel.quantity))")
                                     .font(.body)
                                     .foregroundColor(Color.red)
                             }
@@ -224,14 +173,14 @@ struct HomeView: View {
                                     .font(.body)
                                     .fontWeight(.bold)
                                     .foregroundColor(Color.black)
-                                Text("\(Int(totalPrice))")
+                                Text("\(Int(viewModel.totalPrice))")
                                     .font(.body)
                                     .foregroundColor(Color.red)
                             }
                             .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         .padding()
-                        .opacity(transactionStarted ? 1 : 0)
+                        .opacity(viewModel.transactionStarted ? 1 : 0)
                     }
                     
                     
@@ -258,9 +207,7 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading, .trailing])
                     Button("Track event") {
-                        var eventToken = "83fdb9ae1fbdd2f8f95eb5d426b2e63e"
-                        EventManager.shared.trackCustomEvent(token: eventToken)
-                        showToast(message: "Tracking event with token \(eventToken)")
+                        viewModel.trackEvent()
                         
                     }
                     .padding()
@@ -291,7 +238,7 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading, .trailing])
                     
-                    TextField("Write your age", text: $userAge)
+                    TextField("Write your age", text: $viewModel.userAge)
                         .padding()
                         .frame(width: 250, height: 50)
                         .background(Color.white)
@@ -305,12 +252,7 @@ struct HomeView: View {
                         .padding(.top)
                     
                     Button("Set age") {
-                        if !userAge.isEmpty{
-                            EMMA.trackExtraUserInfo(info: ["AGE": userAge])
-                            showToast(message: "Age set as a TAG, with value = \(userAge)")
-                        } else {
-                            showToast(message: "Please enter an age")
-                        }
+                        viewModel.setAge()
                     }
                     .padding()
                     .background(Color.emmaGreen)
@@ -342,13 +284,7 @@ struct HomeView: View {
                     
                     HStack{
                         Button("Get user ID") {
-                            EMMA.getUserId { (user_id) in
-                                    guard let uid = user_id else {
-                                        showToast(message: "Error getting user id")
-                                        return
-                                    }
-                                    showToast(message: "Your EMMA USER ID is \(uid)")
-                                }
+                            viewModel.getUserID()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -356,8 +292,7 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                         Button("Get device ID") {
-                            var deviceId = EMMA.deviceId()
-                            showToast(message: "Your device ID is \(deviceId)")
+                            viewModel.getDeviceID()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -367,30 +302,14 @@ struct HomeView: View {
                     }
                     
                     Button("Get all user info") {
-                        EMMA.getUserInfo { (user_profile) in
-                            guard let profile = user_profile else {
-                                showToast(message: "Error getting user profile")
-                                return
-                            }
-                            
-                            // Lo pasamos al diccionario de String : Any
-                            var info: [String: Any] = [:]
-                            for (key, value) in profile {
-                                info["\(key)"] = value
-                            }
-                            
-                            DispatchQueue.main.async {
-                                self.userInfo = info
-                                self.showingUserInfo = true
-                            }
-                        }
+                        viewModel.getAllUserInfo()
                     }
                     .padding()
                     .background(Color.emmaGreen)
                     .foregroundColor(.black)
                     .cornerRadius(10)
                     
-                    TextField("Write a customer ID", text: $customerId)
+                    TextField("Write a customer ID", text: $viewModel.setcustomerId)
                     .padding()
                     .frame(width: 250, height: 50)
                     .background(Color.white)
@@ -404,8 +323,7 @@ struct HomeView: View {
                     .padding(.top)
                     
                     Button("Set customer ID") {
-                        EMMA.setCustomerId(customerId: customerId)
-                        showToast(message: "Customer ID set to: \(customerId)")
+                        viewModel.setCustomerID()
                     }
                     .padding()
                     .background(Color.emmaGreen)
@@ -475,7 +393,7 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading, .trailing])
                     Button("View attribution info") {
-                        //TODO: implementar obtener info de atribucion
+                        viewModel.requestAttribution()
                     }
                     .padding()
                     .background(Color.emmaGreen)
@@ -596,10 +514,10 @@ struct HomeView: View {
         }// end of scrollview
         
         // Sheet with userInfo
-        .sheet(isPresented: $showingUserInfo) {
+        .sheet(isPresented: $viewModel.showingUserInfo) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(userInfo.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                    ForEach(viewModel.userInfo.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
                         Text("\(key): \(String(describing: value))")
                             .font(.body)
                             .padding(.vertical, 2)
@@ -613,8 +531,8 @@ struct HomeView: View {
         // Toast for UI information
         .overlay(
             Group {
-                if showToast {
-                    ToastView(message: toastMessage)
+                if viewModel.showToast {
+                    ToastView(message: viewModel.toastMessage)
                         .padding(.bottom, 60)
                 }
             },
@@ -625,18 +543,6 @@ struct HomeView: View {
     }//end of body
     
     // --- other functions --- //
-    
-    // show toast
-    func showToast(message: String) {
-        toastMessage = message
-        showToast = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            showToast = false
-        }
-    }
-
-    
         
 }
 
