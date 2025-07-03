@@ -14,9 +14,6 @@ struct HomeView: View {
     // --- variables --- //
     @StateObject private var viewModel = HomeViewModel()
     
-    // Language
-    @State private var selectedLanguage = "es"
-    
     // Tags
     @State private var userAge: String = ""
     
@@ -353,7 +350,7 @@ struct HomeView: View {
                         .multilineTextAlignment(.center)
                         .padding([.top, .leading, .trailing])
                     
-                    Picker(selection: $selectedLanguage, label: Text("Language")) {
+                    Picker(selection: $viewModel.selectedLanguage, label: Text("Language")) {
                         Text("Spanish").tag("es")
                         Text("English").tag("en")
                         Text("French").tag("fr")
@@ -364,7 +361,7 @@ struct HomeView: View {
                     .pickerStyle(.menu)
                     
                     Button("Set language") {
-                        //TODO: implementar cambiar idioma (refrescar pantalla?)
+                        viewModel.setLanguage()
                     }
                     .padding()
                     .background(Color.emmaGreen)
@@ -425,7 +422,8 @@ struct HomeView: View {
                     
                     HStack{
                         Button("NativeAd") {
-                            //TODO: implementar vista que infle un nativead
+                            print("asking for native ad from button")
+                            viewModel.getNativeAd(templateId: "plantilla-prueba-celia")
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -513,17 +511,27 @@ struct HomeView: View {
                 
         }// end of scrollview
         
-        // Sheet with userInfo
-        .sheet(isPresented: $viewModel.showingUserInfo) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 10) {
-                    ForEach(viewModel.userInfo.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
-                        Text("\(key): \(String(describing: value))")
-                            .font(.body)
-                            .padding(.vertical, 2)
+        // Sheet with userinfo or nativeAd
+        .sheet(item: $viewModel.activeSheet) { sheet in
+            switch sheet {
+            case .userInfo:
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(viewModel.userInfo.sorted(by: { $0.key < $1.key }), id: \.key) { key, value in
+                            Text("\(key): \(String(describing: value))")
+                                .font(.body)
+                                .padding(.vertical, 2)
+                        }
                     }
+                    .padding()
+            }
+            case .nativeAd:
+                if let nativeAd = viewModel.nativeAd {
+                    NativeAdView(nativeAd: nativeAd)
+                } else {
+                    Text("No ad to show")
+                        .padding()
                 }
-                .padding()
             }
         }
 
@@ -543,6 +551,7 @@ struct HomeView: View {
     }//end of body
     
     // --- other functions --- //
+    
         
 }
 

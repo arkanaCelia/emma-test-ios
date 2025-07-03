@@ -17,6 +17,21 @@ class HomeViewModel: ObservableObject {
     @Published var showToast = false
     @Published var toastMessage = ""
     
+    // Sheet managing
+    enum ActiveSheet: Identifiable {
+        case userInfo
+        case nativeAd
+
+        var id: String {
+            switch self {
+            case .userInfo: return "userInfo"
+            case .nativeAd: return "nativeAd"
+            }
+        }
+    }
+
+    @Published var activeSheet: ActiveSheet? = nil
+    
     // Behavior
     let userid = "Celia"
     let mail = "celia@emma.io"
@@ -37,7 +52,12 @@ class HomeViewModel: ObservableObject {
     // User info
     @Published var setcustomerId: String = ""
     @Published var userInfo: [String: Any] = [:]
-    @Published var showingUserInfo = false
+    
+    // Selected language
+    @Published var selectedLanguage = "es"
+    
+    // In-App messages
+    @Published var nativeAd: EMMANativeAd? = nil
 
     
     private var cancellables = Set<AnyCancellable>()
@@ -57,10 +77,14 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
          
     }
-
-    // --- Functions --- //
     
-    // Session
+    //                   //
+    // --- Functions --- //
+    //                   //
+
+
+    // --- Session --- //
+    
     func checkSession() {
         sessionStarted = EMMA.isSessionStarted()
         print("VM - sessionStarted: \(sessionStarted)")
@@ -79,7 +103,8 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    // Behavior
+    // --- Behavior --- //
+    
     func registerUser() {
         EMMA.registerUser(userId: userid, forMail: mail, andExtras: nil)
         showToast(message: "Register test: User \(userid) with email \(mail) registered.")
@@ -90,7 +115,8 @@ class HomeViewModel: ObservableObject {
         showToast(message: "Login test: User \(userid) with email \(mail) logged in.")
     }
     
-    // Transactions
+    // --- Transactions --- //
+    
     func startOrder() {
         transactionStarted = true
         EMMA.startOrder(orderId: orderId, andCustomer: customerId, withTotalPrice: totalPrice, withExtras: nil, assignCoupon: nil)
@@ -125,14 +151,15 @@ class HomeViewModel: ObservableObject {
         totalPrice = 0.0
     }
     
-    // Customized event
+    // --- Customized event --- //
+    
     func trackEvent() {
         let eventToken = "83fdb9ae1fbdd2f8f95eb5d426b2e63e"
         EventManager.shared.trackCustomEvent(token: eventToken)
         showToast(message: "Tracking event with token \(eventToken)")
     }
     
-    // User properties: TAG
+    // --- User properties: TAG --- //
     
     func setAge() {
         if !userAge.isEmpty{
@@ -143,7 +170,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    // User info
+    // --- User info --- //
     
     func getUserID(){
         EMMA.getUserId { (user_id) in
@@ -156,7 +183,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func getDeviceID(){
-        var deviceId = EMMA.deviceId()
+        let deviceId = EMMA.deviceId()
         showToast(message: "Your device ID is \(deviceId)")
     }
     
@@ -175,7 +202,7 @@ class HomeViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.userInfo = info
-                self.showingUserInfo = true
+                self.activeSheet = .userInfo
             }
         }
     }
@@ -185,10 +212,54 @@ class HomeViewModel: ObservableObject {
         showToast(message: "Customer ID set to: \(customerId)")
     }
     
-    // Attribution
+    // --- Attribution --- //
+    
     func requestAttribution() {
         AttributionManager.shared.requestAttributionInfo()
     }
+    
+    // --- Set user language --- //
+    func setLanguage(){
+        EMMA.setUserLanguage(selectedLanguage)
+        showToast(message: "Language changed to \(selectedLanguage)")
+    }
+    
+    // --- InApp Messages --- //
+    func getNativeAd(templateId: String) {
+        print("getNativeAd inits")
+        NativeAdManager.shared.onAdReceived = { [weak self] nativeAd in
+            DispatchQueue.main.async {
+                if let ad = nativeAd {
+                    self?.nativeAd = ad
+                    self?.activeSheet = .nativeAd
+                    print("if inits")
+                } else {
+                    self?.showToast(message: "No NativeAd found")
+                    print("else init")
+                }
+            }
+        }
+        NativeAdManager.shared.getNativeAd(templateId: templateId)
+        print("getNativeAd finish")
+    }
+    
+    
+    
+    func onReceived(_ nativeAd: EMMANativeAd!) {
+        guard let nativeAd = nativeAd else {
+            self.showToast(message: "No NativeAd found")
+            return
+        }
+        print("Received NativeAd with idPromo: \(nativeAd.idPromo)")
+
+        DispatchQueue.main.async {
+            self.nativeAd = nativeAd
+        }
+    }
+    
+    func onShown(_ campaign: EMMACampaign!) {}
+    func onHide(_ campaign: EMMACampaign!) {}
+    func onClose(_ campaign: EMMACampaign!) {}
     
     
     // Manual toast in the view

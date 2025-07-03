@@ -13,12 +13,12 @@ class EventManager: NSObject, EMMARequestDelegate {
     static let shared = EventManager()  
     
     func trackCustomEvent(token: String) {
-        let request = EMMAEventRequest(token: token)
-        request.attributes = ["test_attribute": "test_value"]
-        request.requestDelegate = self
-        request.customId = "test_event_celia"
+        let eventRequest = EMMAEventRequest(token: token)
+        eventRequest.attributes = ["test_attribute": "test_value"]
+        eventRequest.requestDelegate = self
+        eventRequest.customId = "test_event_celia"
         
-        EMMA.trackEvent(request: request)
+        EMMA.trackEvent(request: eventRequest)
     }
     
     // EMMARequestDelegate
