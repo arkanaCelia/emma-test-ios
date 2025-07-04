@@ -13,7 +13,16 @@ struct emma_test_iosApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            UIKitTabBarRootView()
         }
     }
+}
+
+// Runs CustomTabBarController as RootViewController
+struct UIKitTabBarRootView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> some UIViewController {
+        return CustomTabBarController()
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }

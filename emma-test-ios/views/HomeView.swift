@@ -22,7 +22,7 @@ struct HomeView: View {
         ScrollView {
             VStack(spacing: 30) {  // Espacio entre elementos verticales
                 
-            // --- Home banner --- //
+            // --- MARK: Home banner
                 
                 Image("emmaBanner")
                     .resizable()
@@ -31,7 +31,7 @@ struct HomeView: View {
                     .padding(.top)
                 
             
-            // --- Behavior --- //
+            // --- MARK: Behavior
                 
                 VStack {
                     Text("Behavior events")
@@ -184,7 +184,7 @@ struct HomeView: View {
                 }
                 
                 
-            // --- Custom Events --- //
+            // --- MARK: Custom Events
                 
                 VStack {
                     Text("Customized Event")
@@ -215,7 +215,7 @@ struct HomeView: View {
                 }
             
                 
-            // --- User properties: TAG --- //
+            // --- MARK: User properties: TAG
                 
                 VStack {
                     Text("User properties (TAG)")
@@ -259,7 +259,7 @@ struct HomeView: View {
                 }
                 
                 
-            // --- User info --- //
+            // --- MARK: User info
                 
                 VStack {
                     Text("User info")
@@ -330,7 +330,7 @@ struct HomeView: View {
                 }
                 
                 
-            // --- Set user language --- //
+            // --- MARK: Set user language
                 
                 VStack {
                     Text("Set language")
@@ -370,7 +370,7 @@ struct HomeView: View {
                     
                 }
                 
-            // --- Installation attribution --- //
+            // --- MARK: Installation attribution
                     
                 VStack {
                     Text("Attribution info")
@@ -400,7 +400,7 @@ struct HomeView: View {
                     }
                 
                 
-            // --- In-App Messages --- //
+            // --- MARK: In-App Messages
                 
                 VStack {
                     Text("InApp Messages")
@@ -431,7 +431,7 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                         Button("StartView") {
-                            //TODO: implementar startview
+                            viewModel.getStartView()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -441,7 +441,7 @@ struct HomeView: View {
                     }
                     HStack{
                         Button("AdBall") {
-                            //TODO: implementar adball
+                            viewModel.getAdBall()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -449,7 +449,7 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                         Button("Banner") {
-                            //TODO: implementar banner
+                            viewModel.getBanner()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -459,7 +459,7 @@ struct HomeView: View {
                     }
                     HStack{
                         Button("Strip") {
-                            //TODO: implementar strip
+                            viewModel.getStrip()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -467,7 +467,7 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                         Button("Coupon") {
-                            //TODO: implementar vista que infle un coupon
+                            viewModel.getCoupons()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -477,7 +477,7 @@ struct HomeView: View {
                     }
                     HStack{
                         Button("DynamicTab") {
-                            //TODO: implementar dynamictab
+                            viewModel.getDynamicTabBar()
                         }
                         .padding()
                         .background(Color.emmaGreen)
@@ -532,6 +532,14 @@ struct HomeView: View {
                     Text("No ad to show")
                         .padding()
                 }
+            case .coupons:
+                if let coupon = viewModel.coupon {
+                    CouponView(coupon: coupon)
+                } else {
+                    Text("No coupon to show")
+                        .padding()
+                }
+                
             }
         }
 

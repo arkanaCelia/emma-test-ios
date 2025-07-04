@@ -17,15 +17,17 @@ class HomeViewModel: ObservableObject {
     @Published var showToast = false
     @Published var toastMessage = ""
     
-    // Sheet managing
+    // Sheet managing for userInfo, Nativead and coupons
     enum ActiveSheet: Identifiable {
         case userInfo
         case nativeAd
+        case coupons
 
         var id: String {
             switch self {
             case .userInfo: return "userInfo"
             case .nativeAd: return "nativeAd"
+            case .coupons: return "coupons"
             }
         }
     }
@@ -58,6 +60,9 @@ class HomeViewModel: ObservableObject {
     
     // In-App messages
     @Published var nativeAd: EMMANativeAd? = nil
+    @Published var coupons: [EMMACoupon] = []
+    @Published var coupon: EMMACoupon? = nil
+
 
     
     private var cancellables = Set<AnyCancellable>()
@@ -83,7 +88,7 @@ class HomeViewModel: ObservableObject {
     //                   //
 
 
-    // --- Session --- //
+    // --- MARK: Session
     
     func checkSession() {
         sessionStarted = EMMA.isSessionStarted()
@@ -103,7 +108,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    // --- Behavior --- //
+    // --- MARK: Behavior
     
     func registerUser() {
         EMMA.registerUser(userId: userid, forMail: mail, andExtras: nil)
@@ -115,7 +120,7 @@ class HomeViewModel: ObservableObject {
         showToast(message: "Login test: User \(userid) with email \(mail) logged in.")
     }
     
-    // --- Transactions --- //
+    // --- MARK: Transactions
     
     func startOrder() {
         transactionStarted = true
@@ -151,7 +156,7 @@ class HomeViewModel: ObservableObject {
         totalPrice = 0.0
     }
     
-    // --- Customized event --- //
+    // --- MARK: Customized event
     
     func trackEvent() {
         let eventToken = "83fdb9ae1fbdd2f8f95eb5d426b2e63e"
@@ -159,7 +164,7 @@ class HomeViewModel: ObservableObject {
         showToast(message: "Tracking event with token \(eventToken)")
     }
     
-    // --- User properties: TAG --- //
+    // --- MARK: User properties: TAG
     
     func setAge() {
         if !userAge.isEmpty{
@@ -170,7 +175,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    // --- User info --- //
+    // --- MARK: User info
     
     func getUserID(){
         EMMA.getUserId { (user_id) in
@@ -212,19 +217,22 @@ class HomeViewModel: ObservableObject {
         showToast(message: "Customer ID set to: \(customerId)")
     }
     
-    // --- Attribution --- //
+    // --- MARK: Attribution
     
     func requestAttribution() {
         AttributionManager.shared.requestAttributionInfo()
     }
     
-    // --- Set user language --- //
+    // --- MARK: Set user language
     func setLanguage(){
         EMMA.setUserLanguage(selectedLanguage)
         showToast(message: "Language changed to \(selectedLanguage)")
     }
     
-    // --- InApp Messages --- //
+    // --- MARK: InApp Messages
+    
+    // NativeAd
+    
     func getNativeAd(templateId: String) {
         print("getNativeAd inits")
         NativeAdManager.shared.onAdReceived = { [weak self] nativeAd in
@@ -243,15 +251,13 @@ class HomeViewModel: ObservableObject {
         print("getNativeAd finish")
     }
     
-    
-    
     func onReceived(_ nativeAd: EMMANativeAd!) {
         guard let nativeAd = nativeAd else {
             self.showToast(message: "No NativeAd found")
             return
         }
         print("Received NativeAd with idPromo: \(nativeAd.idPromo)")
-
+        EMMA.sendImpression(campaignType: .campaignNativeAd, withId: String(nativeAd.idPromo))
         DispatchQueue.main.async {
             self.nativeAd = nativeAd
         }
@@ -260,6 +266,72 @@ class HomeViewModel: ObservableObject {
     func onShown(_ campaign: EMMACampaign!) {}
     func onHide(_ campaign: EMMACampaign!) {}
     func onClose(_ campaign: EMMACampaign!) {}
+    
+    // Start View
+    func getStartView() {
+        let startViewinAppRequest = EMMAInAppRequest(type: .Startview)
+        // Optional. You can filter by label
+        //startViewinAppRequest.label = "<LABEL>"
+        /*
+         By default Startview presents on UIApplication.shared.delegate?.window?.rootViewController
+         You can customize this behavior uncommenting following line
+        */
+        //EMMA.setRootViewController(UIViewController!)
+        EMMA.inAppMessage(request: startViewinAppRequest)
+    }
+    
+    // AdBall
+    func getAdBall() {
+        let adballRequest = EMMAInAppRequest(type: .Adball)
+        EMMA.inAppMessage(request: adballRequest)
+    }
+    
+    // Banner
+    func getBanner() {
+        let bannerRequest = EMMAInAppRequest(type: .Banner)
+        EMMA.inAppMessage(request: bannerRequest)
+    }
+    
+    // Strip
+    func getStrip() {
+        let stripRequest = EMMAInAppRequest(type: .Strip)
+        EMMA.inAppMessage(request: stripRequest)
+    }
+    
+    // Coupons
+    func getCoupons() {
+        CouponManager.shared.onCouponsReceived = { [weak self] coupons in
+            DispatchQueue.main.async {
+                if let firstCoupon = coupons.first {
+                    self?.coupon = firstCoupon
+                    self?.activeSheet = .coupons
+                } else {
+                    self?.showToast(message: "No coupon available")
+                }
+            }
+        }
+        
+        CouponManager.shared.onError = { [weak self] in
+            self?.showToast(message: "Error retrieving coupons")
+        }
+        
+        CouponManager.shared.getCoupons()
+    }
+    
+    // Dynamic Tab Bar
+    func getDynamicTabBar() {
+        // You must define your UITabBarController
+        // Uncomment following line!
+        // EMMA.setPromoTabBarController(UITabBarController!)
+
+        // Sets default promo tab index if not defined in EMMA Platform
+        //EMMA.setPromoTabBarIndex(index: 5)
+
+        // Sets a tab bar item to be shown if not defined in EMMA Platform
+        // EMMA.setPromoTabBarItem(UITabBarItem!)
+        let dynamicTabBarRequest = EMMAInAppRequest(type: .PromoTab)
+        EMMA.inAppMessage(request: dynamicTabBarRequest)
+    }
     
     
     // Manual toast in the view
