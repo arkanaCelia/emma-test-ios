@@ -11,7 +11,6 @@
 		822094EA2E13BB3800C5B486 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822094E92E13BB3800C5B486 /* ToastView.swift */; };
 		824892E52E17BA4B00C2073E /* CouponManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824892E42E17BA4B00C2073E /* CouponManager.swift */; };
 		824892E72E17BCB500C2073E /* CouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824892E62E17BCB500C2073E /* CouponView.swift */; };
-		824892EB2E17FB6000C2073E /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824892EA2E17FB6000C2073E /* UIApplication.swift */; };
 		824892EF2E18188900C2073E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824892EE2E18188900C2073E /* CustomTabBarController.swift */; };
 		8259C7AA2E1429C800A2B43E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8259C7A92E1429C800A2B43E /* String.swift */; };
 		827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827D7CDA2E0D24FB00C50FE2 /* emma_test_iosApp.swift */; };
@@ -34,7 +33,6 @@
 		822094E92E13BB3800C5B486 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		824892E42E17BA4B00C2073E /* CouponManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponManager.swift; sourceTree = "<group>"; };
 		824892E62E17BCB500C2073E /* CouponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponView.swift; sourceTree = "<group>"; };
-		824892EA2E17FB6000C2073E /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		824892EE2E18188900C2073E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		8259C7A92E1429C800A2B43E /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		827D7CD72E0D24FB00C50FE2 /* emma-test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "emma-test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,7 +153,6 @@
 			children = (
 				82D8E0C82E0D5B2B00DBEBC8 /* CustomColor.swift */,
 				8259C7A92E1429C800A2B43E /* String.swift */,
-				824892EA2E17FB6000C2073E /* UIApplication.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -300,7 +297,6 @@
 				82D046FB2E13C56400152229 /* EventManager.swift in Sources */,
 				82EDDD992E0E741A0078337F /* AppDelegate.swift in Sources */,
 				824892EF2E18188900C2073E /* CustomTabBarController.swift in Sources */,
-				824892EB2E17FB6000C2073E /* UIApplication.swift in Sources */,
 				824892E72E17BCB500C2073E /* CouponView.swift in Sources */,
 				827D7CDD2E0D24FB00C50FE2 /* HomeView.swift in Sources */,
 				827D7CDB2E0D24FB00C50FE2 /* emma_test_iosApp.swift in Sources */,

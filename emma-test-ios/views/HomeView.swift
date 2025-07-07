@@ -475,23 +475,13 @@ struct HomeView: View {
                         .cornerRadius(10)
                         
                     }
-                    HStack{
-                        Button("DynamicTab") {
-                            viewModel.getDynamicTabBar()
-                        }
-                        .padding()
-                        .background(Color.emmaGreen)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
-                        
-                        Button("CustomPlugins") {
-                            //TODO: implementar customplugin (?)
-                        }
-                        .padding()
-                        .background(Color.emmaGreen)
-                        .foregroundColor(.black)
-                        .cornerRadius(10)
+                    Button("DynamicTab") {
+                        viewModel.getDynamicTabBar()
                     }
+                    .padding()
+                    .background(Color.emmaGreen)
+                    .foregroundColor(.black)
+                    .cornerRadius(10)
                     
                 }
                 
