@@ -5,6 +5,8 @@
 //  Created by Celia Pérez Vargas on 30/6/25.
 //
 
+// HomeViewModel.swift
+
 import Foundation
 import EMMA_iOS
 import Combine
